@@ -1,0 +1,33 @@
+{
+  "name": "leopold",
+  "version": "1.0.0",
+  "description": "An app to help me keep my music business organised.",
+  "main": "index.ts",
+  "scripts": {
+    "dev": "dev",
+    "test": "npx jest --coverage",
+    "build": "build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FiddlersCode/leopold.git"
+  },
+  "author": "Paula Muldoon",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FiddlersCode/leopold/issues"
+  },
+  "homepage": "https://github.com/FiddlersCode/leopold#readme",
+  "devDependencies": {
+    "@types/jest": "^24.0.23",
+    "babel-jest": "^24.9.0",
+    "eslint": "^6.7.2",
+    "husky": "^3.1.0",
+    "jest": "^24.9.0",
+    "ts-jest": "^24.2.0",
+    "watch": "^1.0.2"
+  },
+  "dependencies": {
+    "typescript": "^3.7.3"
+  }
+}
