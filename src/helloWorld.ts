@@ -1,5 +1,3 @@
-export class Program {
-    static sayHi = () => {
-        return "hello world";
-    }
+export default class Program {
+    static sayHi = () => 'hello world'
 }
