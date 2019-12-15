@@ -5,7 +5,8 @@
   "main": "app.ts",
   "scripts": {
     "dev": "ts-node-dev --ignore-watch node_module --watch src app.ts",
-    "lint": "eslint src/* --fix",
+    "lint": "eslint src/*",
+    "lint-dev": "eslint src/* --fix",
     "test": "npx jest --coverage"
   },
   "repository": {

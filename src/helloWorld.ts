@@ -1,3 +1,3 @@
 export default class Program {
-    static sayHi = () => 'hello world'
+    static sayHi = () => 'hello world';
 }
