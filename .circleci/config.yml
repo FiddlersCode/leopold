@@ -26,7 +26,7 @@ jobs:
           command: npm run test
       - run:
           name: build-docker-image
-          command: 'docker build -t pmuldoon/leopold:latest'
+          command: 'docker build -t pmuldoon/leopold:latest .'
       - run:
           name: push-docker-image
           command: docker push pmuldoon/leopold:latest
