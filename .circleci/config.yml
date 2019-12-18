@@ -35,3 +35,8 @@ jobs:
       - run:
           name: push-docker-image
           command: docker push pmuldoon/leopold:latest
+      - run:
+          name: deploy-to-raspberry-pi
+          command: |
+            ssh $RASP_PI_USER@$RASP_PI_0_IP
+            docker pull pmuldoon/leopold:latest
