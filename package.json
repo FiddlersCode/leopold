@@ -5,6 +5,7 @@
   "main": "app.ts",
   "scripts": {
     "ci-deploy": "balena push Leopold",
+    "ci-login": "balena login",
     "dev": "ts-node-dev --ignore-watch node_module --watch src app.ts",
     "lint": "eslint src/*",
     "lint-dev": "eslint src/* --fix",
