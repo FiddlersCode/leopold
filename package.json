@@ -4,6 +4,8 @@
   "description": "An app to help me keep my music business organised.",
   "main": "app.ts",
   "scripts": {
+    "ci-deploy": "balena push Leopold",
+    "ci-login": "balena login",
     "dev": "ts-node-dev --ignore-watch node_module --watch src app.ts",
     "lint": "eslint src/*",
     "lint-dev": "eslint src/* --fix",
@@ -28,6 +30,7 @@
     "@typescript-eslint/eslint-plugin": "^2.11.0",
     "@typescript-eslint/parser": "^2.11.0",
     "babel-jest": "^24.9.0",
+    "balena-cli": "^11.21.5",
     "eslint": "^6.7.2",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-import-resolver-typescript": "^2.0.0",

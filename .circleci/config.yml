@@ -24,3 +24,9 @@ jobs:
       - run:
           name: test
           command: npm run test
+      - run:
+          name: balena-login
+          command: npm run ci-login -- --token $BALENA_CLI_TOKEN
+      - run:
+          name: balena-push
+          command: npm run ci-deploy
