@@ -25,5 +25,8 @@ jobs:
           name: test
           command: npm run test
       - run:
+          name: install-balena-cli
+          command: "npm i -g balena-cli"
+      - run:
           name: balena-push
           command: balena push Leopold
