@@ -26,7 +26,7 @@ jobs:
           command: npm run test
       - run:
           name: install-balena-cli
-          command: "sudo npm i -g balena-cli"
+          command: "sudo npm i -g balena-cli --unsafe-perms"
       - run:
           name: balena-push
           command: balena push Leopold
