@@ -1,0 +1,10 @@
+version: '2.1'
+services:
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+  database:
+    image: "arm64v8/mongo"
+    restart: "always"
+
