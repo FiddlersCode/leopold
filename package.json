@@ -4,6 +4,7 @@
   "description": "An app to help me keep my music business organised.",
   "main": "app.ts",
   "scripts": {
+    "ci-deploy": "balena push Leopold",
     "dev": "ts-node-dev --ignore-watch node_module --watch src app.ts",
     "lint": "eslint src/*",
     "lint-dev": "eslint src/* --fix",
