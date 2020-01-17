@@ -1,4 +1,4 @@
-import {GigType} from "../../src/mongo/leopoldMongoClient";
+import {GigType} from "../../src/mongo/gig";
 
 export const makeTestConcert = (dressCode) => {
     return {

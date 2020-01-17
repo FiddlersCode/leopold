@@ -1,6 +1,7 @@
 import {MongoMemoryServer} from 'mongodb-memory-server';
 import * as mongodb from 'mongodb';
-import {LeopoldMongoClient, Concert} from "../../src/mongo/leopoldMongoClient";
+import {LeopoldMongoClient} from "../../src/mongo/leopoldMongoClient";
+import {Concert} from "../../src/mongo/concert"
 import {makeTestConcert} from "./testHelpers"
 
 const MongoClient = mongodb.MongoClient;
