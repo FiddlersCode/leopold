@@ -5,6 +5,9 @@ module.exports = {
     '/node_modules/',
     'build',
   ],
+  collectCoverageFrom: [
+    'src/**/*.ts',
+  ],
   coverageThreshold: {
     global: {
       branches: 95,

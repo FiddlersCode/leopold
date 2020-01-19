@@ -1,5 +1,6 @@
 import * as mongodb from 'mongodb';
 import {Gig} from "./gig";
+import {Concert} from "./concert";
 
 const MongoClient = mongodb.MongoClient;
 
@@ -16,9 +17,19 @@ export class LeopoldMongoClientWrapper {
         console.log(`${this.dbConnection.s.namespace} connection open.`);
     };
 
-    addGig = (db, gig: Gig): void => {
-        db.collection(MongoCollections.GIGS).insertOne(gig, (err, res) => {
+    addGig = (gig: Gig | Concert): void => {
+        this.dbConnection.collection(MongoCollections.GIGS).insertOne(gig, (err, res) => {
             err ? console.error(err) : console.log(`Successfully created entry id: ${res.ops[0]._id}`);
         })
+    };
+
+    addGigs = (gigs: Gig[] | Concert[]): void => {
+        this.dbConnection.collection(MongoCollections.GIGS).insertMany(gigs, (err, res) => {
+            err ? console.error(err) : console.log(`Successfully entered ${res.insertedCount} gigs.`);
+        })
+    };
+
+    getGigs = (filter: object = {}): Gig[] | Concert[] => {
+        return this.dbConnection.collection(MongoCollections.GIGS).find(filter).toArray();
     }
 }
