@@ -1,6 +1,7 @@
-import {GigType} from "../src/mongo/gig";
+import {GigType, Gig} from "../src/mongo/gig";
+import {Concert} from "../src/mongo/concert";
 
-export const makeTestConcert = (dressCode) => {
+export const makeTestConcert = (dressCode = "all black"): Concert | Gig => {
     return {
         dressCode,
         rehearsals: [],
