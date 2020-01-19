@@ -50,7 +50,6 @@ Raspberry Pi run with Balena in prod mode (can be same hardware as Mongo contain
 
 
 
-### Feature Backlog:
+### Contributing:
 
-- Calendar integration
-- 
+- See Contributing.md
