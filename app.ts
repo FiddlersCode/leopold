@@ -1,16 +1,22 @@
-'use strict';
+import {LeopoldMongoClientWrapper} from "./src/mongo/leopoldMongoClientWrapper";
+const mongoClient = new LeopoldMongoClientWrapper();
 
-import * as express from 'express';
+const startServices = async() => {
+    if (process.env.NODE_ENV === "production") {
+        process.env.MONGO_URI = "mongodb://192.168.0.34:27017/leopold"
+    }
+    await mongoClient.connectToDB("leopold");
+};
 
-// Constants
-const PORT: number = 8080;
-const HOST: string = '0.0.0.0';
-
-// App
-const app = express();
-app.get('/', (req, res) => {
-    res.send('Hello world\n');
+startServices().catch(e => {
+    console.error(e);
+    process.exit(1);
 });
 
-app.listen(PORT, HOST);
-console.log(`Running on http://${HOST}:${PORT}`);
+const endServices = async () => {
+    await mongoClient.close();
+};
+
+process.on('SIGTERM', () => {
+    endServices();
+});

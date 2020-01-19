@@ -1,22 +1,24 @@
 import * as mongodb from 'mongodb';
-const MongoClient = mongodb.MongoClient;
-
 import {Gig} from "./gig";
+
+const MongoClient = mongodb.MongoClient;
 
 enum MongoCollections {
     GIGS = "gigs"
 }
 
-export class LeopoldMongoClient{
+export class LeopoldMongoClientWrapper {
     public dbConnection: any;
 
-    connect = async (database: string) => {
-        const connection = await MongoClient.connect(
-            process.env.MONGO_URI, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true
-        });
+    connectToDB = async (database: string) => {
+        const connection = await MongoClient.connect(process.env.MONGO_URI);
         this.dbConnection = connection.db(database);
+        console.log(`${this.dbConnection.s.namespace} connection open.`);
+    };
+
+    close = async () => {
+        await this.dbConnection.close();
+        console.log(`${this.dbConnection} connection closed.`);
     };
 
     addGig = (db, gig: Gig): void => {
