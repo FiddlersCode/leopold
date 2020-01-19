@@ -16,11 +16,6 @@ export class LeopoldMongoClientWrapper {
         console.log(`${this.dbConnection.s.namespace} connection open.`);
     };
 
-    close = async () => {
-        await this.dbConnection.close();
-        console.log(`${this.dbConnection} connection closed.`);
-    };
-
     addGig = (db, gig: Gig): void => {
         db.collection(MongoCollections.GIGS).insertOne(gig, (err, res) => {
             err ? console.error(err) : console.log(`Successfully created entry id: ${res.ops[0]._id}`);

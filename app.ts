@@ -14,9 +14,9 @@ startServices().catch(e => {
 });
 
 const endServices = async () => {
-    await mongoClient.close();
+    await mongoClient.dbConnection.close();
 };
 
-process.on('SIGTERM', () => {
-    endServices();
+process.on('SIGTERM', async () => {
+    await endServices();
 });
