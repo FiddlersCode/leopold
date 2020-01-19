@@ -5,6 +5,7 @@ services:
     ports:
       - "80:8080"
   database:
+    container_name: "mongodb"
     image: "arm64v8/mongo"
     restart: "always"
 
