@@ -6,6 +6,6 @@ services:
       - "80:8080"
   database:
     container_name: "mongodb"
-    image: "arm64v8/mongo"
+    image: "arm64v8/mongo:4.0-xenial"
     restart: "always"
 

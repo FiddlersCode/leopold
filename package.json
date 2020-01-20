@@ -10,6 +10,7 @@
     "lint": "eslint .",
     "lint-dev": "eslint . --fix",
     "start": "NODE_ENV=production ts-node app.ts",
+    "start-dev": "NODE_ENV=dev ts-node -r dotenv/config app.ts",
     "test": "NODE_ENV=test npx jest --coverage"
   },
   "repository": {
