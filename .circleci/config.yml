@@ -1,4 +1,6 @@
 version: 2.1
+orbs:
+  snyk: snyk/snyk@0.0.8
 jobs:
   build:
     working_directory: ~/leopold
@@ -19,6 +21,7 @@ jobs:
           key: dependency-cache-{{ checksum "package-lock.json" }}
           paths:
             - ./node_modules
+      - snyk/scan
       - run:
           name: lint
           command: npm run lint

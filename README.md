@@ -6,6 +6,11 @@ This project will answer the following questions:
 - Where and when should I be playing the violin?
 - Have I been paid for playing the violin?
 
+### Security
+Monitored with Snyk
+
+[![Known Vulnerabilities](https://snyk.io/test/github/FiddlersCode/leopold/badge.svg?targetFile=package.json)](https://snyk.io/test/github/FiddlersCode/leopold?targetFile=package.json)
+
 ### Local Dev:
 
 -  Run the Docker stack: `docker-compose up`
