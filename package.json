@@ -34,8 +34,6 @@
     "@typescript-eslint/parser": "^2.11.0",
     "babel-jest": "^24.9.0",
     "balena-cli": "^11.21.5",
-    "commitizen": "^4.0.3",
-    "cz-conventional-changelog": "^3.0.2",
     "dotenv": "^8.2.0",
     "eslint": "^6.7.2",
     "eslint-config-airbnb-base": "^14.0.0",
@@ -59,17 +57,11 @@
   },
   "husky": {
     "hooks": {
-      "prepare-commit-msg": "exec < /dev/tty && git cz --hook || true",
       "pre-commit": "npm run lint-dev && npm run test"
     }
   },
   "jest": {
     "globalSetup": "./node_modules/@shelf/jest-dynamodb/setup.js",
     "globalTeardown": "./node_modules/@shelf/jest-dynamodb/teardown.js"
-  },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
-    }
   }
 }
