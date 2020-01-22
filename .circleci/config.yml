@@ -29,6 +29,31 @@ jobs:
           name: test
           command: npm run test
       - run:
+          name: Build and Scan Docker image
+          command: |
+            echo 'export PATH=~$PATH:~/.local/bin' >> $BASH_ENV
+            echo 'export TAG=${CIRCLE_SHA1}' >> $BASH_ENV
+            echo 'export IMAGE_NAME=leopold' >> $BASH_ENV && source $BASH_ENV
+            npm install
+            docker build -t $DOCKER_USER/$IMAGE_NAME -t $DOCKER_USER/$IMAGE_NAME:$TAG .
+      - snyk/scan:
+          fail-on-issues: true
+          monitor-on-build: true
+          docker-image-name: $DOCKER_USER/$IMAGE_NAME:$TAG
+          target-file: "Dockerfile"
+          project: ${CIRCLE_PROJECT_REPONAME}/${CIRCLE_BRANCH}-app
+          organization: ${SNYK_CICD_ORGANIZATION}
+      - run:
+          name: Build and Push Docker image to Docker Hub
+          command: |
+            echo 'export PATH=~$PATH:~/.local/bin' >> $BASH_ENV
+            echo 'export TAG=${CIRCLE_SHA1}' >> $BASH_ENV
+            echo 'export IMAGE_NAME=leopold' >> $BASH_ENV && source $BASH_ENV
+            npm install
+            docker build -t $DOCKER_USER/$IMAGE_NAME -t $DOCKER_USER/$IMAGE_NAME:$TAG .
+            echo $DOCKERHUB_PASSWORD | docker login -u $DOCKER_USER --password-stdin
+            docker push $DOCKER_USER/$IMAGE_NAME
+      - run:
           name: balena-login
           command: npm run ci-login -- --token $BALENA_CLI_TOKEN
       - run:
