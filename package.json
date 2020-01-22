@@ -7,6 +7,7 @@
     "ci-deploy": "balena push Leopold",
     "ci-login": "balena login",
     "dev": "NODE_ENV=dev ts-node-dev -r dotenv/config  --ignore-watch node_module --watch src app.ts",
+    "docs": "typedoc --out docs src/",
     "lint": "eslint .",
     "lint-dev": "eslint . --fix",
     "start": "NODE_ENV=production ts-node app.ts",
@@ -44,7 +45,8 @@
     "js-yaml": "^3.13.1",
     "mongodb-memory-server": "^6.2.2",
     "ts-jest": "^24.2.0",
-    "ts-node-dev": "^1.0.0-pre.44"
+    "ts-node-dev": "^1.0.0-pre.44",
+    "typedoc": "^0.16.8"
   },
   "dependencies": {
     "@shelf/jest-mongodb": "^1.1.3",
