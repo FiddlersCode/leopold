@@ -26,6 +26,9 @@ jobs:
           name: test
           command: npm run test
       - run:
+          name: generate-docs
+          command: npm run docs
+      - run:
           name: balena-login
           command: npm run ci-login -- --token $BALENA_CLI_TOKEN
       - run:
