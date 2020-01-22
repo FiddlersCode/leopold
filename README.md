@@ -1,4 +1,6 @@
 # Leopold
+[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
+
 A virtual agent for my violin playing!
 
 This project will answer the following questions:
@@ -88,6 +90,13 @@ Tip: use the bash command `history` to get the number of your previous commit, a
 ```
 - `npm run test` also runs Jest's coverage tool.
 Your commit will fail if the coverage falls below the parameters defined in `jest.config.js`/
+
+#### Commit Message
+
+We automatically generate semantic version numbers and changelogs based on your commit messages.
+After the pre-flight checks have been run, an interactive dialogue will appear for you to formulate a commit message.
+(NB: You may wish to change your default git editor: https://git-scm.com/book/en/v2/Customizing-Git-Git-Configuration)
+
 
 #### Push Stage
 Further checks are run at this stage.
