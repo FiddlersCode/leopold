@@ -29,14 +29,20 @@ jobs:
           name: generate-docs
           command: npm run docs
   deploy:
-    name: Build and Push Docker image to Docker Hub
-    command: |
-      echo 'export PATH=~$PATH:~/.local/bin' >> $BASH_ENV
-      echo 'export TAG=${CIRCLE_SHA1}' >> $BASH_ENV
-      echo 'export IMAGE_NAME=leopold' >> $BASH_ENV && source $BASH_ENV
-      docker build -t $DOCKER_USER/$IMAGE_NAME -t $DOCKER_USER/$IMAGE_NAME:$TAG .
-      echo $DOCKERHUB_PASSWORD | docker login -u $DOCKER_USER --password-stdin
-      docker push $DOCKER_USER/$IMAGE_NAME
+    environment:
+      IMAGE_NAME: building-on-ci
+    docker:
+      - image: circleci/node:12.13.1
+    steps:
+      - setup_remote_docker
+      - run:
+          name: Build Docker image
+          command: docker build -t $DOCKER_IMAGE_NAME:latest .
+      - run:
+          name: Publish Docker Image to Docker Hub
+          command: |
+            echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKER_USER" --password-stdin
+            docker push $DOCKER_IMAGE_NAME:latest
 workflows:
   version: 2
   build-and-deploy:
