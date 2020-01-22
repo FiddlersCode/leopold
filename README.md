@@ -71,6 +71,9 @@ This repo is written with TDD - see more below and please continue to contribute
 ### Automated Tooling
 #### Setup
 - You can run the `dev-setup.bash` script which will create a lot of your development environment.
+
+   - Copies the .env template file
+   - Installs the [Circle CI CLI](https://circleci.com/docs/2.0/local-cli/) (required for pre-commit checks) 
 Improvements to this script are https://github.com/FiddlersCode/leopold/issues/32
 - When developing locally, use a feature branch with the format `issue-NN`, where the issue links to the relevant GitHub issue.
 Commits should start with this issue number.
@@ -82,7 +85,7 @@ When you attempt a commit, the following checks will be run:
 An improvement to add the fixed files to staging and re-attempt the commit is here https://github.com/FiddlersCode/leopold/issues/7
 - `npm run test`: this will run all tests using Jest. The commit will fail if any tests fail. You will need to fix the broken test(s) and re-commit.
 Tip: use the bash command `history` to get the number of your previous commit, and re-run with `!`:
-```$xslt
+```
   history
   801  git commit -m 'issue-29: add more db queries, refactor the test code and fix the coverage tooling to check the correct dirs'
   !801

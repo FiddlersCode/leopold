@@ -1,1 +1,0 @@
-cp .env-template .env
