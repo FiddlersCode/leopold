@@ -27,7 +27,7 @@
     "publish": [
       {
         "path": "semantic-release-docker",
-        "name": "paulamuldoon/leopold"
+        "name": "pmuldoon/leopold"
       }
     ]
   },
