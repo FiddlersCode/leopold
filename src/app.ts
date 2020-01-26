@@ -1,4 +1,4 @@
-import {LeopoldMongoClientWrapper} from "./src/mongo/leopoldMongoClientWrapper";
+import {LeopoldMongoClientWrapper} from "./mongo/leopoldMongoClientWrapper";
 const mongoClient = new LeopoldMongoClientWrapper();
 import * as express from 'express';
 
@@ -15,7 +15,7 @@ const startWebApp = () => {
 
 
 
-const startServices = async() => {
+export const startServices = async() => {
     if (process.env.NODE_ENV === "production") {
         process.env.MONGO_URI = "mongodb://192.168.0.34:27017/leopold";
         process.env.PORT = '8080';

@@ -4,16 +4,14 @@
   "description": "An app to help me keep my music business organised.",
   "main": "app.ts",
   "scripts": {
-    "ci-deploy": "balena push Leopold",
-    "ci-login": "balena login",
+    "build-ts": "tsc",
     "ci-validate": "circleci config validate",
     "dev": "NODE_ENV=dev ts-node-dev -r dotenv/config  --ignore-watch node_module --watch src app.ts",
     "docs": "typedoc --out docs src/",
     "lint": "eslint .",
     "lint-dev": "eslint . --fix",
-    "start": "NODE_ENV=production ts-node app.ts",
-    "start-dev": "NODE_ENV=dev ts-node -r dotenv/config app.ts",
-    "test": "NODE_ENV=test npx jest --coverage"
+    "start": "NODE_ENV=production npm run build-ts && node -r dotenv/config ./dist/app.js",
+    "test": "npx jest --coverage"
   },
   "repository": {
     "type": "git",
