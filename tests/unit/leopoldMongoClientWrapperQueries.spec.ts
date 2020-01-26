@@ -12,7 +12,10 @@ describe('Leopold Mongo Client Wrapper', () => {
     beforeAll(async () => {
         const mongod = new MongoMemoryServer();
         process.env.MONGO_URI = await mongod.getUri();
-        leopoldMongoClientWrapper = new LeopoldMongoClientWrapper(process.env.MONGO_URI);
+        leopoldMongoClientWrapper = new LeopoldMongoClientWrapper(
+            process.env.MONGO_URI,
+            { useUnifiedTopology: true }
+        );
         await leopoldMongoClientWrapper.connectToDB(testDB);
         gigs = leopoldMongoClientWrapper.dbConnection.collection("gigs");
     });

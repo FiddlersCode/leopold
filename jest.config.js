@@ -1,6 +1,6 @@
-process.env.MONGO_URI = "mongodb://localhost:27017/leopold";
+process.env.MONGO_URI = 'mongodb://localhost:27017/leopold';
 process.env.PORT = '8000';
-process.env.HOST = "localhost";
+process.env.HOST = 'localhost';
 
 module.exports = {
   preset: 'ts-jest',
