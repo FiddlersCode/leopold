@@ -48,6 +48,9 @@ Improvements to this script are https://github.com/FiddlersCode/leopold/issues/3
 
 Alternatively, you can run these steps manually. (They have only been tested on a Mac so Windows users may experience issues with the script.)
 
+#### Troubleshooting
+- Mongo connection errors? `brew services restart mongodb-community`
+
 #### Commit Stage
 Commits can be made using `git commit` or `git commit -m`. 
 We recommend `git commit` as there will be an interactive shell to enforce commit message style

@@ -10,10 +10,11 @@ enum MongoCollections {
 }
 
 /** Class representing a wrapper around the database client.
+ * Extends parent methods from the base MongoClient.
  * @class LeopoldMongoClientWrapper
  */
 
-export class LeopoldMongoClientWrapper {
+export class LeopoldMongoClientWrapper extends MongoClient {
     public dbConnection: any;
 
     /**

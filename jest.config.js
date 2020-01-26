@@ -1,9 +1,13 @@
+process.env.MONGO_URI = 'mongodb://localhost:27017/leopold';
+process.env.PORT = '8000';
+process.env.HOST = 'localhost';
+
 module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'node',
   testPathIgnorePatterns: [
     '/node_modules/',
-    'build',
+    'dist',
   ],
   collectCoverageFrom: [
     'src/**/*.ts',
