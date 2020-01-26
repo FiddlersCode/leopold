@@ -22,15 +22,9 @@ describe('Services', () => {
         const expectedLogMessage = `Running on http://${process.env.HOST}:${process.env.PORT}`;
         expect(global.console.log).toHaveBeenCalledWith(expectedLogMessage);
     });
-    it('ss100.T20: starts the database connection', async () => {
-        const expectedLogMessage = `leopold connection open.`;
-        expect(global.console.log).toHaveBeenCalledWith(expectedLogMessage)
-    });
 
-    it('ss100.T30: closes the connections', async () => {
+    it('ss100.T20: closes the connections', async () => {
         await endServices();
-        const expectedLogMessage = `Database connection closed.`;
-        expect(global.console.log).toHaveBeenCalledWith(expectedLogMessage);
         try {
             await axios.get(`http://${process.env.HOST}:${process.env.PORT}/${routes.healthcheck}`)
         } catch (e) {

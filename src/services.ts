@@ -1,6 +1,3 @@
-import {LeopoldMongoClientWrapper} from "./mongo/leopoldMongoClientWrapper";
-
-const mongoClient = new LeopoldMongoClientWrapper(process.env.MONGO_URI);
 import * as express from 'express';
 let server;
 
@@ -17,12 +14,9 @@ const startWebApp = () => {
 
 export const startServices = async () => {
     startWebApp();
-    await mongoClient.connectToDB("leopold");
 };
 
 export const endServices = async () => {
-    await mongoClient.close();
-    console.log("Database connection closed.");
     server.close();
     console.log("Web server closed.");
 };
