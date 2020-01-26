@@ -4,22 +4,15 @@ import {makeTestConcert} from "../testHelpers"
 import {Gig} from "../../src/mongo/gig";
 import {Concert} from "../../src/mongo/concert";
 
-
-// @ts-ignore
-global.console = {
-    log: jest.fn(),
-    error: jest.fn()
-};
-
 describe('Leopold Mongo Client Wrapper', () => {
     let leopoldMongoClientWrapper: LeopoldMongoClientWrapper;
     const testDB = "unit-test";
     let gigs: any;
 
     beforeAll(async () => {
-        leopoldMongoClientWrapper = new LeopoldMongoClientWrapper();
         const mongod = new MongoMemoryServer();
         process.env.MONGO_URI = await mongod.getUri();
+        leopoldMongoClientWrapper = new LeopoldMongoClientWrapper(process.env.MONGO_URI);
         await leopoldMongoClientWrapper.connectToDB(testDB);
         gigs = leopoldMongoClientWrapper.dbConnection.collection("gigs");
     });
@@ -79,8 +72,8 @@ describe('Leopold Mongo Client Wrapper', () => {
     });
 
     afterAll(async (done) => {
-        await leopoldMongoClientWrapper.dbConnection.collection.drop("gigs");
-        await leopoldMongoClientWrapper.dbConnection.close();
+        await leopoldMongoClientWrapper.dbConnection.dropCollection("gigs");
+        await leopoldMongoClientWrapper.close();
         leopoldMongoClientWrapper = null;
         done();
     });
