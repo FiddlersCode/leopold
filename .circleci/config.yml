@@ -35,7 +35,8 @@ jobs:
           command: npm run docs
       - run:
           name: Build Docker image
-          command: docker build -t $DOCKER_IMAGE_NAME:latest .
+          command: |
+            docker build -t $DOCKER_IMAGE_NAME .
       - run:
           name: Archive Docker image
           command: docker save -o image.tar $DOCKER_IMAGE_NAME
@@ -54,9 +55,7 @@ jobs:
           command: docker load -i /tmp/workspace/image.tar
       - run:
           name: Publish Docker Image to Docker Hub
-          command: |
-            echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKER_USER" --password-stdin
-            docker push $DOCKER_IMAGE_NAME:latest
+          command: npx semantic-release
 workflows:
   version: 2
   build-and-deploy:
