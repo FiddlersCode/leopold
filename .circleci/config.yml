@@ -44,6 +44,20 @@ jobs:
           root: .
           paths:
             - ./image.tar
+  dry-run-release:
+    executor: docker-publisher
+    steps:
+      - attach_workspace:
+          at: /tmp/workspace
+      - setup_remote_docker
+      - run:
+          name: Load archived Docker image
+          command: docker load -i /tmp/workspace/image.tar
+      - run:
+          name: Dry run of release
+          command: |
+            cd leopold
+            npx semantic-release --dry-run
   deploy:
     executor: docker-publisher
     steps:
@@ -61,6 +75,7 @@ workflows:
   build-and-deploy:
     jobs:
       - build
+      - dry-run-release
       - deploy:
           requires:
             - build
