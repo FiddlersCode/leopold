@@ -1,4 +1,4 @@
-process.env.MONGO_URI = 'mongodb://localhost:27017/leopold';
+process.env.NODE_ENV = 'test';
 process.env.PORT = '8000';
 process.env.HOST = 'localhost';
 

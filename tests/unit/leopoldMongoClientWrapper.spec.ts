@@ -1,6 +1,6 @@
 import {MongoMemoryServer} from 'mongodb-memory-server';
 import * as mongodb from 'mongodb';
-import {LeopoldMongoClientWrapper} from "../../src/mongo/leopoldMongoClientWrapper";
+import {LeopoldMongoClientWrapper, MongoCollections} from "../../src/mongo/leopoldMongoClientWrapper";
 import {Concert} from "../../src/mongo/concert"
 import {makeTestConcert} from "../testHelpers"
 import {Gig} from "../../src/mongo/gig";
@@ -16,16 +16,14 @@ describe('Leopold Mongo Client Wrapper', () => {
     let leopoldMongoClientWrapper: LeopoldMongoClientWrapper;
     const testDB: string = "unit-test";
     let gigsCollection: any;
+    let mongod: MongoMemoryServer;
 
     beforeAll(async () => {
-        const mongod = new MongoMemoryServer();
-        process.env.MONGO_URI = await mongod.getUri();
-        leopoldMongoClientWrapper = new LeopoldMongoClientWrapper(
-            process.env.MONGO_URI,
-            { useUnifiedTopology: true }
-        );
+        mongod = new MongoMemoryServer();
+        const mongoUri = await mongod.getUri();
+        leopoldMongoClientWrapper = new LeopoldMongoClientWrapper(mongoUri);
         await leopoldMongoClientWrapper.connectToDB(testDB);
-        gigsCollection = leopoldMongoClientWrapper.dbConnection.collection("gigs");
+        gigsCollection = leopoldMongoClientWrapper.dbConnection.collection(MongoCollections.GIGS);
     });
 
     describe('DB Connections', () => {
@@ -41,18 +39,17 @@ describe('Leopold Mongo Client Wrapper', () => {
             const concertToAdd: Concert | Gig = makeTestConcert(dressCode);
 
             leopoldMongoClientWrapper.addGig(concertToAdd);
-            const gigs = leopoldMongoClientWrapper.dbConnection.collection("gigs");
 
             const callback = (doc) => {
                 const expectedLogMessage = `Successfully created entry id: ${doc._id}`;
-                const expectedLogMessage1 = "unit-test connection open.";
+                const expectedLogMessage1 = `${testDB} connection open.`;
                 expect(global.console.log).toHaveBeenCalledWith(expectedLogMessage1);
                 expect(global.console.log).toHaveBeenCalledWith(expectedLogMessage);
                 expect(doc).toEqual(concertToAdd);
                 done();
             };
 
-            gigs.findOne({dressCode}, (err, doc) => {
+            gigsCollection.findOne({dressCode}, (err, doc) => {
                 if (err) console.log(err);
                 callback(doc);
             });
@@ -63,25 +60,23 @@ describe('Leopold Mongo Client Wrapper', () => {
             const gigsToAdd: any[] = [];
             for (let i: number = 0; i < numberOfGigs; i++) {
                 gigsToAdd.push(makeTestConcert(dressCode));
-                gigsToAdd.push(makeTestConcert(dressCode));
             }
             leopoldMongoClientWrapper.addGigs(gigsToAdd);
             const gigsAdded = await gigsCollection.find({dressCode}).toArray();
-            expect(gigsToAdd.length).toEqual(gigsAdded.length);
-
             const expectedLogMessage = `Successfully entered ${gigsToAdd.length} gigs.`;
             expect(global.console.log).toHaveBeenCalledWith(expectedLogMessage);
+            expect(gigsAdded.length).toEqual(numberOfGigs);
+
         });
         it('ss100.T20 log an error if there is a problem adding one gig', (done) => {
             const dressCode = "ss100.T20";
             const gigToAdd: Concert | Gig = makeTestConcert(dressCode);
 
             leopoldMongoClientWrapper.addGig(gigToAdd);
-            const gigs = leopoldMongoClientWrapper.dbConnection.collection("gigs");
             leopoldMongoClientWrapper.addGig(gigToAdd);
 
             const callback = (doc) => {
-                gigs.insertOne({_id: doc._id}, (err) => {
+                gigsCollection.insertOne({_id: doc._id}, (err) => {
                     if (err) console.log(err);
                 });
                 const expectedLogMessage = new mongodb.MongoError(`E11000 duplicate key error dup key: { : ObjectId('${doc._id}') }`);
@@ -89,7 +84,7 @@ describe('Leopold Mongo Client Wrapper', () => {
                 done();
             };
 
-            gigs.findOne({dressCode}, (err, doc) => {
+            gigsCollection.findOne({dressCode}, (err, doc) => {
                 if (err) console.log(err);
                 callback(doc);
             });
@@ -99,11 +94,10 @@ describe('Leopold Mongo Client Wrapper', () => {
             const gigToAdd: Concert | Gig = makeTestConcert(dressCode);
 
             leopoldMongoClientWrapper.addGigs([gigToAdd]);
-            const gigs = leopoldMongoClientWrapper.dbConnection.collection("gigs");
             leopoldMongoClientWrapper.addGigs([gigToAdd]);
 
             const callback = (doc) => {
-                gigs.insertOne({_id: doc._id}, (err) => {
+                gigsCollection.insertOne({_id: doc._id}, (err) => {
                     if (err) console.log(err);
                 });
                 const expectedLogMessage = new mongodb.MongoError(`E11000 duplicate key error dup key: { : ObjectId('${doc._id}') }`);
@@ -111,7 +105,7 @@ describe('Leopold Mongo Client Wrapper', () => {
                 done();
             };
 
-            gigs.findOne({dressCode}, (err, doc) => {
+            gigsCollection.findOne({dressCode}, (err, doc) => {
                 if (err) console.log(err);
                 callback(doc);
             });
@@ -119,9 +113,10 @@ describe('Leopold Mongo Client Wrapper', () => {
     });
 
     afterAll(async (done) => {
-        await leopoldMongoClientWrapper.dbConnection.collection.drop("gigs");
+        await leopoldMongoClientWrapper.dbConnection.dropCollection(MongoCollections.GIGS);
         await leopoldMongoClientWrapper.dbConnection.close();
         leopoldMongoClientWrapper = null;
+        mongod = null;
         done();
     });
 });

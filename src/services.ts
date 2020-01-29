@@ -16,7 +16,6 @@ const startWebApp = () => {
 
 
 const setProdConfig = () => {
-    process.env.MONGO_URI = config.production.MONGO_URI;
     process.env.PORT = config.production.PORT;
     process.env.HOST = config.production.HOST
 };
