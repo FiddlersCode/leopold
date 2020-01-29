@@ -57,13 +57,7 @@ jobs:
       - run:
           name: Dry run of release
           command: |
-            ls
-            ls ~/
-            ls /tmp/workspace
-            docker image ls
-            docker ps
-            cd /tmp/workspace
-            npx semantic-release --dry-run --debug=true
+            npx semantic-release --dry-run
   deploy:
     executor: docker-publisher
     steps:
