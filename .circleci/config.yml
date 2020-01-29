@@ -56,7 +56,11 @@ jobs:
       - run:
           name: Dry run of release
           command: |
-            cd leopold
+            ls
+            ls ~/
+            docker image ls
+            docker ps
+            cd ~/leopold
             npx semantic-release --dry-run
   deploy:
     executor: docker-publisher
