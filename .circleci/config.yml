@@ -60,8 +60,8 @@ jobs:
             ls ~/
             docker image ls
             docker ps
-            cd ~/leopold
-            npx semantic-release --dry-run
+            checkout
+            npx semantic-release --dry-run --debug=true
   deploy:
     executor: docker-publisher
     steps:
