@@ -4,6 +4,7 @@
   "description": "An app to help me keep my music business organised.",
   "main": "app.ts",
   "scripts": {
+    "build": "npm run docs && npm run build-ts",
     "build-ts": "tsc",
     "ci-validate": "circleci config validate",
     "dev": "NODE_ENV=dev ts-node-dev -r dotenv/config  --ignore-watch node_module app.ts --watch ",
@@ -11,7 +12,7 @@
     "lint": "eslint .",
     "lint-dev": "eslint . --fix",
     "semantic-release": "semantic-release",
-    "start": "NODE_ENV=production npm run build-ts && node -r dotenv/config ./dist/app.js",
+    "start": "NODE_ENV=production npm run build && node -r dotenv/config ./dist/app.js",
     "test": "npx jest --coverage"
   },
   "release": {
