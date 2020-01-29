@@ -16,9 +16,23 @@
   },
   "release": {
     "plugins": [
+      "semantic-release-docker",
       "@semantic-release/commit-analyzer",
-      "@semantic-release/git",
-      "semantic-release-docker"
+      "@semantic-release/release-notes-generator",
+      [
+        "@semantic-release/changelog",
+        {
+          "changelogFile": "docs/CHANGELOG.md"
+        }
+      ],
+      [
+        "@semantic-release/git",
+        {
+          "assets": [
+            "docs/CHANGELOG.md"
+          ]
+        }
+      ]
     ],
     "branches": [
       "develop"
