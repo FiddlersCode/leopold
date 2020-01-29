@@ -3,3 +3,4 @@ architecture/
 .circleci
 docs
 dist
+stryker.conf.js

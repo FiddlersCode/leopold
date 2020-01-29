@@ -5,7 +5,7 @@ import {Concert} from "./concert";
 const MongoClient = mongodb.MongoClient;
 
 
-enum MongoCollections {
+export enum MongoCollections {
     GIGS = "gigs"
 }
 
@@ -14,15 +14,20 @@ enum MongoCollections {
  * @class LeopoldMongoClientWrapper
  */
 
-export class LeopoldMongoClientWrapper extends MongoClient {
+export class LeopoldMongoClientWrapper {
     public dbConnection: any;
+    private readonly mongoURI: string;
+
+    constructor(mongoURI) {
+        this.mongoURI = mongoURI
+    }
 
     /**
      * Connect to the database.
      * @param {string} database - the name of the database you wish to connect to.
      */
     connectToDB = async (database: string): Promise<void> => {
-        const connection = await MongoClient.connect(process.env.MONGO_URI);
+        const connection = await MongoClient.connect(this.mongoURI);
         this.dbConnection = connection.db(database);
         console.log(`${this.dbConnection.s.namespace} connection open.`);
     };

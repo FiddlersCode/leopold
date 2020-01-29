@@ -19,6 +19,8 @@ describe('Services', () => {
         }));
 
         it('ss100.T10: starts the web server', async () => {
+            expect(process.env.PORT).toBe("8000");
+            expect(process.env.HOST).toBe('localhost');
             expect(response.status).toBe(200);
             expect(response.data).toEqual("Service is healthy!\n");
             const expectedLogMessage = `Running on http://${process.env.HOST}:${process.env.PORT}`;
@@ -37,12 +39,16 @@ describe('Services', () => {
     });
 
     describe("Production mode", () => {
-        it('ss100.T10: sets the production mode', async () => {
+
+        it('ss100.T10: runs in production mode', async () => {
             process.env.NODE_ENV = "production";
             await startServices();
-            expect(process.env.MONGO_URI).toBe(config.production.MONGO_URI);
             expect(process.env.PORT).toBe(config.production.PORT);
             expect(process.env.HOST).toBe(config.production.HOST);
+
         });
+        afterAll(async () => {
+            await endServices();
+        })
     })
 });
