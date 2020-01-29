@@ -74,9 +74,6 @@ After the pre-flight checks have been run, an interactive dialogue will appear f
 or else remember `:q!` to quite Vim without saving the file.)
 https://github.com/FiddlersCode/leopold/issues/47
 
-Not yet implemented:
-- automatic generation of semantic version numbers and changelogs based on your commit messages (hence the enforced style)
-
 #### Push Stage
 At the moment, no further checks are run at this stage.
 
@@ -96,9 +93,11 @@ In order for a PR to be marked as "able to be merged", the following must be tru
 - Branch build has succeeded on Circle CI.
 
 Upon merge, a build will be kicked off on Circle CI's `develop` branch. 
-If the build passes, the build Docker image will be tagged and pushed to Docker hub.
-(Currently builds are tagged as "latest" but need to implement automatic semver 
-to tag them correctly https://github.com/FiddlersCode/leopold/issues/47).
+If the build passes, the built Docker image will be tagged and pushed to Docker hub.
+Tags are created by `semantic-release`, and are based on the style-enforced commit message.
+
+Not yet implemented:
+- automatic generation of changelogs based on your commit messages
 
 The image is then available to download to any servers that require an update.
 

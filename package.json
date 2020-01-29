@@ -16,9 +16,23 @@
   },
   "release": {
     "plugins": [
+      "semantic-release-docker",
       "@semantic-release/commit-analyzer",
-      "@semantic-release/git",
-      "semantic-release-docker"
+      "@semantic-release/release-notes-generator",
+      [
+        "@semantic-release/changelog",
+        {
+          "changelogFile": "docs/CHANGELOG.md"
+        }
+      ],
+      [
+        "@semantic-release/git",
+        {
+          "assets": [
+            "docs/CHANGELOG.md"
+          ]
+        }
+      ]
     ],
     "branches": [
       "develop"
@@ -41,6 +55,7 @@
   },
   "homepage": "https://github.com/FiddlersCode/leopold#readme",
   "devDependencies": {
+    "@semantic-release/changelog": "^5.0.0",
     "@semantic-release/commit-analyzer": "^7.0.0",
     "@semantic-release/git": "^8.0.0",
     "@types/express": "^4.17.2",
