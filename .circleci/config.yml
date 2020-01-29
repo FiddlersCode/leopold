@@ -83,6 +83,9 @@ workflows:
       - dry-run-release:
           requires:
             - build
+          filters:
+            branches:
+              ignore: develop
       - deploy:
           requires:
             - build
