@@ -57,6 +57,7 @@ jobs:
       - run:
           name: Dry run of release
           command: |
+            npm i
             npx semantic-release --dry-run
   deploy:
     executor: docker-publisher
