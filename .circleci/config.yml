@@ -75,7 +75,9 @@ workflows:
   build-and-deploy:
     jobs:
       - build
-      - dry-run-release
+      - dry-run-release:
+          requires:
+            - build
       - deploy:
           requires:
             - build
