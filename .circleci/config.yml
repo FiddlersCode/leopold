@@ -49,6 +49,7 @@ jobs:
     steps:
       - attach_workspace:
           at: /tmp/workspace
+      - checkout
       - setup_remote_docker
       - run:
           name: Load archived Docker image
@@ -58,9 +59,10 @@ jobs:
           command: |
             ls
             ls ~/
+            ls /tmp/workspace
             docker image ls
             docker ps
-            checkout
+            cd /tmp/workspace
             npx semantic-release --dry-run --debug=true
   deploy:
     executor: docker-publisher
