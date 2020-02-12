@@ -96,7 +96,7 @@
     "express": "^4.17.1",
     "typescript": "^3.7.5",
     "mongodb": "^3.5.1",
-    "ts-node": "^8.6.1"
+    "ts-node": "^8.6.2"
   },
   "husky": {
     "hooks": {
