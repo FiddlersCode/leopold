@@ -4,10 +4,10 @@ import {Fee} from "./fee";
 import {Repertoire} from "./repertoire"
 
 export enum GigType {
-    Rehearsal = "rehearsal",
-    Concert = "concert",
-    Tuition = "tuition",
-    Other = "other",
+    Rehearsal = "Rehearsal",
+    Concert = "Concert",
+    Tuition = "Tuition",
+    Other = "Other",
 }
 
 export interface Gig {
