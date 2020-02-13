@@ -1,11 +1,11 @@
-import {ContactPerson} from "../../src/mongo/contactPerson";
-import {Org} from "../../src/mongo/org";
-import {Gig, GigType} from "../../src/mongo/gig";
+import {ContactPerson} from "../../src/contactPerson";
+import {Org} from "../../src/org";
+import {Gig, GigType} from "../../src/gig";
 import {InvoiceData} from "../../src/invoices/invoiceGenerator"
-import {Fee} from "../../src/mongo/fee";
-import {Repertoire} from "../../src/mongo/repertoire";
-import {Venue} from "../../src/mongo/venue";
-import {BankDetails} from "../../src/mongo/bankDetails";
+import {Fee} from "../../src/fee";
+import {Repertoire} from "../../src/repertoire";
+import {Venue} from "../../src/venue";
+import {BankDetails} from "../../src/bankDetails";
 
 
 export const fee: Fee = {

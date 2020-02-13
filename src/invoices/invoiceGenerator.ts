@@ -1,7 +1,7 @@
-import {Gig} from "../mongo/gig"
+import {Gig} from "../gig"
 import * as fse from 'fs-extra'
-import {ContactPerson} from "../mongo/contactPerson";
-import {BankDetails} from "../mongo/bankDetails";
+import {ContactPerson} from "../contactPerson";
+import {BankDetails} from "../bankDetails";
 
 export interface InvoiceData {
     invoiceDate: Date,
