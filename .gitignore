@@ -5,7 +5,6 @@ coverage
 .env
 docs
 /dist
-generated.pdf
 
 # stryker temp files
 .stryker-tmp
