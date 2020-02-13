@@ -1,6 +1,7 @@
 import * as mongodb from 'mongodb';
-import {Gig} from "./gig";
-import {Concert} from "./concert";
+import {Gig} from "../gig";
+import {Concert} from "../concert";
+import {Db} from "mongodb";
 
 const MongoClient = mongodb.MongoClient;
 
@@ -16,6 +17,7 @@ export enum MongoCollections {
 
 export class LeopoldMongoClientWrapper {
     public dbConnection: any;
+    public db: Db;
     private readonly mongoURI: string;
 
     constructor(mongoURI) {
@@ -27,27 +29,17 @@ export class LeopoldMongoClientWrapper {
      * @param {string} database - the name of the database you wish to connect to.
      */
     connectToDB = async (database: string): Promise<void> => {
-        const connection = await MongoClient.connect(this.mongoURI);
-        this.dbConnection = connection.db(database);
+        this.dbConnection = await MongoClient.connect(this.mongoURI);
+        this.db = this.dbConnection.db(database);
         console.log(`${this.dbConnection.s.namespace} connection open.`);
     };
 
     /**
-     * Add a gig to the database.
-     * @param {Gig | Concert} gig - the gig you wish to add to the database.
-     */
-    addGig = (gig: Gig | Concert): void => {
-        this.dbConnection.collection(MongoCollections.GIGS).insertOne(gig, (err, res) => {
-            err ? console.error(err) : console.log(`Successfully created entry id: ${res.ops[0]._id}`);
-        })
-    };
-
-    /**
      * Add multiple gigs to the database.
-     * @param {Gig[] | Concert[]} gigs - the gigs you wish to add to the database.
+     * @param {Gig[] | Concert[]} gigs - the gigs you wish to add to the database. Can be a single-item array.
      */
     addGigs = (gigs: Gig[] | Concert[]): void => {
-        this.dbConnection.collection(MongoCollections.GIGS).insertMany(gigs, (err, res) => {
+        this.db.collection(MongoCollections.GIGS).insertMany(gigs, (err, res) => {
             err ? console.error(err) : console.log(`Successfully entered ${res.insertedCount} gigs.`);
         })
     };
@@ -59,7 +51,7 @@ export class LeopoldMongoClientWrapper {
      * @return {Gig[] | Concert[]} the gigs you have requested.
 
      */
-    getGigs = (filter: object = {}): Gig[] | Concert[] => {
-        return this.dbConnection.collection(MongoCollections.GIGS).find(filter).toArray();
+    getGigs = (filter: object = {}) => {
+        return this.db.collection(MongoCollections.GIGS).find(filter).toArray();
     }
 }

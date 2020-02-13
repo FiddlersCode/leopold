@@ -1,13 +1,12 @@
 import {MongoMemoryServer} from 'mongodb-memory-server';
 import {LeopoldMongoClientWrapper, MongoCollections} from "../../src/mongo/leopoldMongoClientWrapper";
 import {makeTestConcert} from "../testHelpers"
-import {Gig} from "../../src/mongo/gig";
-import {Concert} from "../../src/mongo/concert";
+import {Gig} from "../../src/gig";
+import {Concert} from "../../src/concert";
 
 describe('Leopold Mongo Client Wrapper', () => {
     let leopoldMongoClientWrapper: LeopoldMongoClientWrapper;
     const testDB = "unit-test";
-    let gigs: any;
     let mongod: MongoMemoryServer;
 
     beforeAll(async () => {
@@ -15,7 +14,6 @@ describe('Leopold Mongo Client Wrapper', () => {
         const mongoURI = await mongod.getUri();
         leopoldMongoClientWrapper = new LeopoldMongoClientWrapper(mongoURI);
         await leopoldMongoClientWrapper.connectToDB(testDB);
-        gigs = leopoldMongoClientWrapper.dbConnection.collection(MongoCollections.GIGS);
     });
 
     describe('DB queries', () => {
@@ -73,7 +71,7 @@ describe('Leopold Mongo Client Wrapper', () => {
     });
 
     afterAll(async (done) => {
-        await leopoldMongoClientWrapper.dbConnection.dropCollection(MongoCollections.GIGS);
+        await leopoldMongoClientWrapper.db.dropCollection(MongoCollections.GIGS);
         await leopoldMongoClientWrapper.dbConnection.close();
         leopoldMongoClientWrapper = null;
         mongod = null;
