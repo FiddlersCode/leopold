@@ -5,6 +5,7 @@ import {InvoiceData} from "../../src/invoices/invoiceGenerator"
 import {Fee} from "../../src/mongo/fee";
 import {Repertoire} from "../../src/mongo/repertoire";
 import {Venue} from "../../src/mongo/venue";
+import {BankDetails} from "../../src/mongo/bankDetails";
 
 
 export const fee: Fee = {
@@ -69,7 +70,23 @@ export const gigs: Gig[] = [
 ];
 
 
+export const musician: ContactPerson = {
+    firstName: "Keiko",
+    lastName: "O'Brien",
+    email: "keiko.obrien@starfleet.com",
+    phoneNumber: "1111111111"
+};
+
+export const bankDetails: BankDetails= {
+  bankName: "Bank of Starfleet",
+  sortCode: "000000",
+  account: "12345678"
+};
+
 export const invoiceData: InvoiceData = {
+    invoiceDate: new Date("2020-10-31"),
+    musician,
     gigs,
     dueDate: new Date("2020-03-01"),
+    bankDetails
 };
